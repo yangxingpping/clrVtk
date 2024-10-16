@@ -1,7 +1,11 @@
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.25)
 
-project("CLI_DLL_Bridge_Test")
+#set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"  CACHE STRING "Vcpkg toolchain file")
 
+project(clrVtk)
+
+find_package(VTK REQUIRED)
+include("${VTK_USE_FILE}")
 
 ##############################################################
 # Output paths
