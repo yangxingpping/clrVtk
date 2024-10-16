@@ -15,6 +15,8 @@ namespace EntityLibrary
 		//Sets
 		void SetInt(int nInt);
 
+		void SetClrPolyData(Kitware::VTK::vtkPolyData^ pd);
+
 		IntPtr GetPolyData();
 		Kitware::VTK::vtkPolyData^ GetClrPolyData();
 	private:
