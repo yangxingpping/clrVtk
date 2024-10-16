@@ -13,6 +13,11 @@ namespace SimpleClient
       static void Main(string[] args)
       {
          var entity = new ManagedEntity();
+         var pd = entity.GetPolyData();
+         var clrpd = entity.GetClrPolyData();
+         var pts = clrpd.GetPoints();
+         var polys = clrpd.GetPolys();
+         var polyc = polys.GetSize();
          var myInt = 1;
          //Test Int
          System.Console.WriteLine("C# - Value for int: {0}", myInt);
@@ -21,11 +26,6 @@ namespace SimpleClient
          System.Console.WriteLine("C# - Value for int after GetInt: {0}", myInt);
          entity.SetInt(100);
          System.Console.WriteLine("C# - C++ Value stored for the int: {0} \n", entity.GetInt());
-
-
-
-
-
       }
    }
 }

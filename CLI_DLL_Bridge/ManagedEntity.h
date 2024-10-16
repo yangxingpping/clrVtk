@@ -2,20 +2,21 @@
 
 #include "NativeEntity.h"
 #include <vector>
-namespace EntityLibrary {
+namespace EntityLibrary
+{
 	using namespace System;
-
-
-	public ref class ManagedEntity {
+	public ref class ManagedEntity
+	{
 	public:
 		ManagedEntity();
 		~ManagedEntity();
-
 		//Gets
 		int GetInt();
-
 		//Sets
 		void SetInt(int nInt);
+
+		IntPtr GetPolyData();
+		Kitware::VTK::vtkPolyData^ GetClrPolyData();
 	private:
 		NativeEntity* nativeObj; // Our native object is thus being wrapped
 	};

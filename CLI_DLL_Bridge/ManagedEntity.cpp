@@ -1,29 +1,42 @@
 #include "ManagedEntity.h"
 
-using namespace EntityLibrary;
+
 using namespace System;
 using namespace System::Runtime::InteropServices;	// needed for Marshal
 
-
-ManagedEntity::ManagedEntity()
+namespace EntityLibrary
 {
-	nativeObj = new NativeEntity();
-}
+	ManagedEntity::ManagedEntity()
+	{
+		nativeObj = new NativeEntity();
+		nativeObj->Init();
+	}
 
 
-ManagedEntity::~ManagedEntity()
-{
-	delete nativeObj;
+	ManagedEntity::~ManagedEntity()
+	{
+		delete nativeObj;
 
-}
+	}
 
-int ManagedEntity::GetInt()
-{
-	int tempInt = nativeObj->GetInt();
-	return tempInt;
-}
+	int ManagedEntity::GetInt()
+	{
+		int tempInt = nativeObj->GetInt();
+		return tempInt;
+	}
 
-void ManagedEntity::SetInt(int nInt)
-{
-	nativeObj->SetInt(nInt);
+	void ManagedEntity::SetInt(int nInt)
+	{
+		nativeObj->SetInt(nInt);
+	}
+
+	IntPtr ManagedEntity::GetPolyData()
+	{
+		return System::IntPtr(nativeObj->GetPolyData());
+	}
+	Kitware::VTK::vtkPolyData^ ManagedEntity::GetClrPolyData()
+	{
+		Kitware::VTK::vtkPolyData^ ret = gcnew Kitware::VTK::vtkPolyData(GetPolyData(), false, true);
+		return ret;
+	}
 }
