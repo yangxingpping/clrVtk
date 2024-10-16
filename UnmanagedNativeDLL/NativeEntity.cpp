@@ -5,6 +5,7 @@
 
 #include "vtkPolyData.h"
 #include "vtkFloatArray.h"
+#include "vtkVersion.h"
 
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 #include <windows.h>
@@ -31,6 +32,7 @@ BOOL APIENTRY DllMain(HMODULE /*hModule*/, DWORD	ul_reason_for_call, LPVOID /*lp
 
 NativeEntity::NativeEntity()
 {
+	cout << "vtk verison:" << vtkVersion::GetVTKMajorVersion() << "." << vtkVersion::GetVTKMinorVersion() << "." << vtkVersion::GetVTKBuildVersion() << endl;
 	mPolyData = vtkPolyData::New();
 }
 
@@ -41,6 +43,16 @@ NativeEntity::~NativeEntity()
 		mPolyData->Delete();
 		mPolyData = nullptr;
 	}
+}
+
+void NativeEntity::Reset(void* pt)
+{
+	if (mPolyData != nullptr)
+	{
+		mPolyData->Delete();
+	}
+	mPolyData = (vtkPolyData*)(pt);
+	Init();
 }
 
 bool NativeEntity::Init()

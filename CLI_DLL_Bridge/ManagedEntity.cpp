@@ -45,7 +45,10 @@ namespace EntityLibrary
 	}
 	Kitware::VTK::vtkPolyData^ ManagedEntity::GetClrPolyData()
 	{
-		Kitware::VTK::vtkPolyData^ ret = gcnew Kitware::VTK::vtkPolyData(GetPolyData(), false, true);
+		Kitware::VTK::vtkPolyData^ ret = Kitware::VTK::vtkPolyData::New();
+		void* vpt = ret->GetCppThis().Handle.ToPointer();
+		nativeObj->Reset(vpt);
+		Console::WriteLine("point count={0}", ret->GetPoints()->GetNumberOfPoints());
 		return ret;
 	}
 }

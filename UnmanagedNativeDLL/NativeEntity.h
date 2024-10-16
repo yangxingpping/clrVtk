@@ -17,6 +17,7 @@ public:
 	NativeEntity(const NativeEntity& ref) = delete;
 	NativeEntity(const NativeEntity&& ref) = delete;
 	~NativeEntity();
+	void Reset(void* pt);
 	bool Init();
 
 	//gets
