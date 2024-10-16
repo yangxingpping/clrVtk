@@ -62,8 +62,18 @@ bool NativeEntity::Init()
 	// The ordering of the corner points on each face.
 	std::array<std::array<vtkIdType, 4>, 6> ordering = { { { { 0, 1, 2, 3 } }, { { 4, 5, 6, 7 } },
 	  { { 0, 1, 5, 4 } }, { { 1, 2, 6, 5 } }, { { 2, 3, 7, 6 } }, { { 3, 0, 4, 7 } } } };
-
-	vtkNew<vtkPoints> points;
+	vtkPoints* points{ nullptr };
+	if (mPolyData->GetPoints())
+	{
+		std::cout << "polyData points is not empty" << std::endl;
+		points = mPolyData->GetPoints();
+	}
+	else
+	{
+		points = vtkPoints::New();
+		mPolyData->SetPoints(points);
+	}
+	//vtkNew<vtkPoints> points;
 	vtkNew<vtkCellArray> polys;
 	vtkNew<vtkFloatArray> scalars;
 
@@ -79,9 +89,9 @@ bool NativeEntity::Init()
 	}
 
 	// We now assign the pieces to the vtkPolyData.
-	mPolyData->SetPoints(points);
-	mPolyData->SetPolys(polys);
-	std::cout << "ploys count=" << polys->GetSize() << std::endl;
+	//mPolyData->SetPoints(points);
+	//mPolyData->SetPolys(polys);
+	std::cout << "ploys count=" << polys->GetSize() << " points count=" << mPolyData->GetPoints()->GetNumberOfPoints() << std::endl;
 	//mPolyData->GetPointData()->SetScalars(scalars);
 	return true;
 }
