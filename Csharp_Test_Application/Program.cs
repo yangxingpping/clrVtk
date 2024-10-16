@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using EntityLibrary;
+using Kitware.VTK;
 
 namespace SimpleClient
 {
@@ -14,7 +15,7 @@ namespace SimpleClient
       {
          var mypd = Kitware.VTK.vtkPolyData.New();
          var entity = new ManagedEntity();
-
+         Console.WriteLine("csharp vtk version: {0}.{1}.{2}", Kitware.VTK.vtkVersion.GetVTKMajorVersion(), Kitware.VTK.vtkVersion.GetVTKMinorVersion(), Kitware.VTK.vtkVersion.GetVTKBuildVersion());
          //var pd = entity.GetPolyData();
          //var bfound = false;
          //var pd2 = Kitware.mummy.Runtime.Methods.CreateWrappedObject("class vtkPolyData", pd, true, out bfound);
