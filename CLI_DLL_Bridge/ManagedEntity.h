@@ -22,6 +22,9 @@ namespace EntityLibrary
 		Kitware::VTK::vtkPolyData^ GetCppPolyDataByCopy();
 	private:
 		NativeEntity* nativeObj; // Our native object is thus being wrapped
+
+		Kitware::VTK::vtkPolyData^ ret ;
+		Kitware::VTK::vtkPoints^ pts;
 	};
 
 }

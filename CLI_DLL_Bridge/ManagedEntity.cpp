@@ -10,6 +10,8 @@ namespace EntityLibrary
 	ManagedEntity::ManagedEntity()
 	{
 		nativeObj = new NativeEntity();
+		ret = gcnew Kitware::VTK::vtkPolyData();
+		pts = gcnew Kitware::VTK::vtkPoints();
 		nativeObj->Init();
 	}
 
@@ -47,9 +49,6 @@ namespace EntityLibrary
 	}
 	Kitware::VTK::vtkPolyData^ ManagedEntity::GetClrPolyData()
 	{
-		Kitware::VTK::vtkPolyData^ ret = gcnew Kitware::VTK::vtkPolyData();
-		Kitware::VTK::vtkPoints^ pts = gcnew Kitware::VTK::vtkPoints();
-
 		ret->SetPoints(pts);
 		void* vpt = ret->GetCppThis().Handle.ToPointer();
 		nativeObj->Reset(vpt);

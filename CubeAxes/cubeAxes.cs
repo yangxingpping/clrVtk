@@ -1,27 +1,11 @@
 using Kitware.VTK;
 using System;
 
-/// <summary>
-/// Class Containing Main Method
-/// </summary>
 public class cubeAxesClass
 {
-    /// <summary>
-    /// An example that does not use a Windows Form
-    /// </summary>
-    /// <param name="argv"></param>
     public static void Main(String[] argv)
     {
-        // This example demonstrates the use of vtkCubeAxesActor2D to indicate the
-        // position in space that the camera is currently viewing.
-        // The vtkCubeAxesActor2D draws axes on the bounding box of the data set and
-        // labels the axes with x-y-z coordinates.
-        //
-        // First we include the VTK Tcl packages which will make available
-        // all of the vtk commands to Tcl
-        //
-        // Create a vtkBYUReader and read in a data set.
-        //
+        
         fohe = vtkBYUReader.New();
         fohe.SetGeometryFileName("../../../teapot.g");
 

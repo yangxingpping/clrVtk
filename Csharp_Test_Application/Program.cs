@@ -17,11 +17,18 @@ namespace SimpleClient
             var polyData = entity.GetCppPolyDataByCopy();
         }
 
+        static void sendCLRPolyDataToCpp()
+        {
+            var entity = new ManagedEntity();
+            var pd = entity.GetClrPolyData();
+        }
+
         static void Main(string[] args)
         {
             //var mypd = Kitware.VTK.vtkPolyData.New();
             var entity = new ManagedEntity();
             Console.WriteLine("csharp vtk version: {0}.{1}.{2}", Kitware.VTK.vtkVersion.GetVTKMajorVersion(), Kitware.VTK.vtkVersion.GetVTKMinorVersion(), Kitware.VTK.vtkVersion.GetVTKBuildVersion());
+            //sendCLRPolyDataToCpp();
             copyAllDataFromCppTest();
             //var pd = entity.GetPolyData();
             //var bfound = false;
