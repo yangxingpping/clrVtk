@@ -7,7 +7,7 @@ public class cubeAxesClass
     public static void InitLODActor()
     {
         fohe = vtkBYUReader.New();
-        fohe.SetGeometryFileName("../../../teapot.g");
+        fohe.SetGeometryFileName("../../teapot.g");
 
         // Create a vtkPolyDataNormals filter to calculate the normals of the data set.
         normals = vtkPolyDataNormals.New();
