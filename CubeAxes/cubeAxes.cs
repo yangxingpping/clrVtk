@@ -33,19 +33,20 @@ public class cubeAxesClass
         outlineActor.SetMapper(mapOutline);
         outlineActor.GetProperty().SetColor(0, 0, 0);
     }
-    public static void Main(String[] argv)
+    public static void InitCamera()
     {
-
-        InitLODActor();
-
-        InitOutlineActor();
-
         // Create a vtkCamera, and set the camera parameters.
         camera = vtkCamera.New();
         camera.SetClippingRange(1.60187, 20.0842);
         camera.SetFocalPoint(0.21406, 1.5, 0);
         camera.SetPosition(8.3761, 4.94858, 4.12505);
         camera.SetViewUp(0.180325, 0.549245, -0.815974);
+    }
+    public static void Main(String[] argv)
+    {
+        InitLODActor();
+        InitOutlineActor();
+        InitCamera();
 
         // Create a vtkLight, and set the light parameters.
         light = vtkLight.New();
