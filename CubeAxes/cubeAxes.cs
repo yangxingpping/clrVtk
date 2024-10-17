@@ -164,6 +164,7 @@ public class cubeAxesClass
         renWin = vtkRenderWindow.New();
         renWin.AddRenderer(ren1);
         renWin.AddRenderer(ren2);
+        renWin.AddRenderer(ren3);
         renWin.SetWindowName("VTK - Cube Axes");
         renWin.SetSize(600, 300);
         iren = vtkRenderWindowInteractor.New();
