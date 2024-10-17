@@ -49,48 +49,22 @@ public class cubeAxesClass
         light.SetFocalPoint(0.21406, 1.5, 0);
         light.SetPosition(8.3761, 4.94858, 4.12505);
     }
-    public static void Main(String[] argv)
+    public static void InitAxesProp()
     {
-        InitLODActor();
-        InitOutlineActor();
-        InitCamera();
-        InitLight();
-
-        // Create the Renderers.  Assign them the appropriate viewport coordinates,
-        // active camera, and light.
-        ren1 = vtkRenderer.New();
-        ren1.SetViewport(0, 0, 0.5, 1.0);
-        ren1.SetActiveCamera(camera);
-        ren1.AddLight(light);
-        
-        ren2 = vtkRenderer.New();
-        ren2.SetViewport(0.5, 0, 1.0, 1.0);
-        ren2.SetActiveCamera(camera);
-        ren2.AddLight(light);
-
-        // Create the RenderWindow and RenderWindowInteractor.
-        renWin = vtkRenderWindow.New();
-        renWin.AddRenderer(ren1);
-        renWin.AddRenderer(ren2);
-        renWin.SetWindowName("VTK - Cube Axes");
-        renWin.SetSize(600, 300);
-        iren = vtkRenderWindowInteractor.New();
-        iren.SetRenderWindow(renWin);
-        vtkInteractorStyleSwitch.SafeDownCast(iren.GetInteractorStyle()).SetCurrentStyleToTrackballCamera();
-
-        // Add the actors to the renderer, and set the background.
-        ren1.AddViewProp(foheActor);
-        ren1.AddViewProp(outlineActor);
-        ren2.AddViewProp(foheActor);
-        ren2.AddViewProp(outlineActor);
-        ren1.SetBackground(0.1, 0.2, 0.4);
-        ren2.SetBackground(0.1, 0.2, 0.4);
-
         // Create a text property for both cube axes
         tprop = vtkTextProperty.New();
         tprop.SetColor(1, 1, 1);
         tprop.ShadowOn();
-
+    }
+    public static void CreateWinLeftBottom()
+    {
+        ren1 = vtkRenderer.New();
+        ren1.SetViewport(0, 0, 0.5, 1.0);
+        ren1.SetActiveCamera(camera);
+        ren1.AddLight(light);
+        ren1.AddViewProp(foheActor);
+        ren1.AddViewProp(outlineActor);
+        ren1.SetBackground(0.1, 0.2, 0.4);
         // Create a vtkCubeAxesActor2D.  Use the outer edges of the bounding box to
         // draw the axes.  Add the actor to the renderer.
         axes = vtkCubeAxesActor2D.New();
@@ -102,7 +76,16 @@ public class cubeAxesClass
         axes.SetAxisTitleTextProperty(tprop);
         axes.SetAxisLabelTextProperty(tprop);
         ren1.AddViewProp(axes);
-
+    }
+    public static void CreateWinRightBottom()
+    {
+        ren2 = vtkRenderer.New();
+        ren2.SetViewport(0.5, 0, 1.0, 1.0);
+        ren2.SetActiveCamera(camera);
+        ren2.AddLight(light);
+        ren2.AddViewProp(foheActor);
+        ren2.AddViewProp(outlineActor);
+        ren2.SetBackground(0.1, 0.2, 0.4);
         // Create a vtkCubeAxesActor2D.  Use the closest vertex to the camera to
         // determine where to draw the axes.  Add the actor to the renderer.
         axes2 = vtkCubeAxesActor2D.New();
@@ -115,6 +98,26 @@ public class cubeAxesClass
         axes2.SetAxisTitleTextProperty(tprop);
         axes2.SetAxisLabelTextProperty(tprop);
         ren2.AddViewProp(axes2);
+    }
+    public static void Main(String[] argv)
+    {
+        InitLODActor();
+        InitOutlineActor();
+        InitCamera();
+        InitLight();
+        InitAxesProp();
+
+        CreateWinLeftBottom();
+        
+        // Create the RenderWindow and RenderWindowInteractor.
+        renWin = vtkRenderWindow.New();
+        renWin.AddRenderer(ren1);
+        renWin.AddRenderer(ren2);
+        renWin.SetWindowName("VTK - Cube Axes");
+        renWin.SetSize(600, 300);
+        iren = vtkRenderWindowInteractor.New();
+        iren.SetRenderWindow(renWin);
+        vtkInteractorStyleSwitch.SafeDownCast(iren.GetInteractorStyle()).SetCurrentStyleToTrackballCamera();
 
         // Render
         renWin.Render();
