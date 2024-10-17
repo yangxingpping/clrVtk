@@ -60,7 +60,7 @@ public class cubeAxesClass
     public static void CreateWinLeftBottom()
     {
         ren1 = vtkRenderer.New();
-        ren1.SetViewport(0, 0, 0.5, 1.0);
+        ren1.SetViewport(0, 0, 0.5, 0.5);
         ren1.SetActiveCamera(camera);
         ren1.AddLight(light);
         ren1.AddViewProp(foheActor);
@@ -116,6 +116,39 @@ public class cubeAxesClass
         txtTag.SetInput("load vtkPolyData from cpp");
         ren2.AddActor(txtTag);
     }
+    public static void CreateWinLeftTop()
+    {
+        var obj = new ManagedEntity();
+        ren3 = vtkRenderer.New();
+        ren3.SetViewport(0, 0.5, 0.5, 1.0);
+        ren3.SetActiveCamera(camera);
+        ren3.AddLight(light);
+        polyDataMapper = vtkPolyDataMapper.New();
+        polyDataMapper.SetInputData(obj.GetCppPolyDataByCopy());
+        polyDataActor = vtkActor.New();
+        polyDataActor.SetMapper(polyDataMapper);
+        polyDataActor.GetProperty().SetDiffuseColor(1, 0, 0);
+        polyDataActor.GetProperty().SetSpecular(0);
+        polyDataActor.GetProperty().SetSpecularPower(5.0);
+        ren3.AddViewProp(polyDataActor);
+        ren3.AddViewProp(outlineActor);
+        ren3.SetBackground(0.1, 0.2, 0.4);
+        // Create a vtkCubeAxesActor2D.  Use the closest vertex to the camera to
+        // determine where to draw the axes.  Add the actor to the renderer.
+        axes3 = vtkCubeAxesActor2D.New();
+        axes3.SetViewProp(foheActor);
+        axes3.SetCamera(ren2.GetActiveCamera());
+        axes3.SetLabelFormat("%6.4g");
+        axes3.SetFlyModeToClosestTriad();
+        axes3.SetFontFactor(0.8);
+        axes3.ScalingOff();
+        axes3.SetAxisTitleTextProperty(tprop);
+        axes3.SetAxisLabelTextProperty(tprop);
+        ren3.AddViewProp(axes3);
+        var txtTag = vtkTextActor.New();
+        txtTag.SetInput("load vtkPolyData from cpp");
+        ren3.AddActor(txtTag);
+    }
     public static void Main(String[] argv)
     {
         InitLODActor();
@@ -161,11 +194,13 @@ public class cubeAxesClass
     static vtkLight light;
     static vtkRenderer ren1;
     static vtkRenderer ren2;
+    static vtkRenderer ren3;
     static vtkRenderWindow renWin;
     static vtkRenderWindowInteractor iren;
     static vtkTextProperty tprop;
     static vtkCubeAxesActor2D axes;
     static vtkCubeAxesActor2D axes2;
+    static vtkCubeAxesActor2D axes3;
     static vtkPolyDataMapper polyDataMapper;
     static vtkActor polyDataActor;
     static int foo;
