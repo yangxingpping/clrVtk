@@ -132,7 +132,10 @@ namespace EntityLibrary
 		ret->SetPoints(cpoints);
 		ret->SetPolys(cpolys);
 		ret->SetLines(clines);
-		//ret->GetPointData()->SetNormals(cnor);
+		if (cnor->GetSize() > 0)
+		{
+			ret->GetPointData()->SetNormals(cnor);
+		}
 		ret->GetPointData()->SetTCoords(cuvs);
 		return ret;
 	}
