@@ -10,7 +10,8 @@
 #include "vtkRenderWindow.h"
 #include "vtkRenderWindowInteractor.h"
 #include "vtkActor.h"
-//#include "vtkSmartPointer.hxx"
+#include "BRepPrimAPI_MakeBox.hxx"
+#include "BRepTools.hxx"
 #include "IVtkTools_ShapeDataSource.hxx"
 
 using std::cout;
@@ -31,6 +32,8 @@ int main()
     }
     reader.TransferRoot();
     shape = reader.Shape();
+	BRepPrimAPI_MakeBox makeBox(10.0, 10.0, 10.0);
+	TopoDS_Shape cube = makeBox.Shape();
     IVtkOCC_Shape::Handle shapeimpl = new IVtkOCC_Shape(shape);
     vtkSmartPointer<IVtkTools_ShapeDataSource> ds = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
     ds->SetShape(shapeimpl);
