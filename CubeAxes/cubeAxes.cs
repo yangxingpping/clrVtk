@@ -1,5 +1,6 @@
 using Kitware.VTK;
 using System;
+using EntityLibrary;
 
 public class cubeAxesClass
 {
@@ -79,11 +80,20 @@ public class cubeAxesClass
     }
     public static void CreateWinRightBottom()
     {
+        var obj = new ManagedEntity();
         ren2 = vtkRenderer.New();
         ren2.SetViewport(0.5, 0, 1.0, 1.0);
         ren2.SetActiveCamera(camera);
         ren2.AddLight(light);
-        ren2.AddViewProp(foheActor);
+        polyDataMapper = vtkPolyDataMapper.New();
+        polyDataMapper.SetInputData(obj.GetCppPolyDataByCopy());
+        polyDataActor = vtkActor.New();
+        polyDataActor.SetMapper(polyDataMapper);
+        polyDataActor.GetProperty().SetDiffuseColor(1, 0, 0);
+        polyDataActor.GetProperty().SetSpecular(0);
+        polyDataActor.GetProperty().SetSpecularPower(5.0);
+        ren2.AddViewProp(polyDataActor);
+        //ren2.AddViewProp(foheActor);
         ren2.AddViewProp(outlineActor);
         ren2.SetBackground(0.1, 0.2, 0.4);
         // Create a vtkCubeAxesActor2D.  Use the closest vertex to the camera to
@@ -149,6 +159,8 @@ public class cubeAxesClass
     static vtkTextProperty tprop;
     static vtkCubeAxesActor2D axes;
     static vtkCubeAxesActor2D axes2;
+    static vtkPolyDataMapper polyDataMapper;
+    static vtkActor polyDataActor;
     static int foo;
 
     /// <summary>
@@ -183,6 +195,8 @@ public class cubeAxesClass
         if (tprop != null) { tprop.Dispose(); }
         if (axes != null) { axes.Dispose(); }
         if (axes2 != null) { axes2.Dispose(); }
+        if (polyDataMapper != null) { polyDataMapper.Dispose(); }
+        if (polyDataActor != null) { polyDataActor.Dispose(); }
     }
 }
 
