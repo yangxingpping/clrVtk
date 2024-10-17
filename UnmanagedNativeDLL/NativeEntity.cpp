@@ -4,6 +4,7 @@
 #include <array>
 
 #include "vtkPolyData.h"
+#include "vtkPointData.h"
 #include "vtkFloatArray.h"
 #include "vtkVersion.h"
 
@@ -92,7 +93,13 @@ bool NativeEntity::Init()
 	//mPolyData->SetPoints(points);
 	mPolyData->SetPolys(polys);
 	std::cout << "ploys count=" << polys->GetSize() << " points count=" << mPolyData->GetPoints()->GetNumberOfPoints() << std::endl;
-	//mPolyData->GetPointData()->SetScalars(scalars);
+	mPolyData->GetPointData()->SetScalars(scalars);
+	return true;
+}
+
+bool NativeEntity::Init2()
+{
+
 	return true;
 }
 

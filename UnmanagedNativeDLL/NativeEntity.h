@@ -19,6 +19,7 @@ public:
 	~NativeEntity();
 	void Reset(void* pt);
 	bool Init();
+	bool Init2();
 
 	//gets
 	int GetInt();
