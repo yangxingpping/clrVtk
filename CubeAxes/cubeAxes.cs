@@ -114,7 +114,7 @@ public class cubeAxesClass
         ren2.AddViewProp(axes2);
         var txtTag = vtkTextActor.New();
         txtTag.SetInput("load vtkPolyData from cpp");
-        ren1.AddActor(txtTag);
+        ren2.AddActor(txtTag);
     }
     public static void Main(String[] argv)
     {
