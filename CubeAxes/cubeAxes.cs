@@ -77,6 +77,10 @@ public class cubeAxesClass
         axes.SetAxisTitleTextProperty(tprop);
         axes.SetAxisLabelTextProperty(tprop);
         ren1.AddViewProp(axes);
+
+        var txtTag = vtkTextActor.New();
+        txtTag.SetInput("load from file");
+        ren1.AddActor(txtTag);
     }
     public static void CreateWinRightBottom()
     {
@@ -108,6 +112,9 @@ public class cubeAxesClass
         axes2.SetAxisTitleTextProperty(tprop);
         axes2.SetAxisLabelTextProperty(tprop);
         ren2.AddViewProp(axes2);
+        var txtTag = vtkTextActor.New();
+        txtTag.SetInput("load vtkPolyData from cpp");
+        ren1.AddActor(txtTag);
     }
     public static void Main(String[] argv)
     {
