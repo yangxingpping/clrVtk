@@ -159,6 +159,7 @@ public class cubeAxesClass
 
         CreateWinLeftBottom();
         CreateWinRightBottom();
+        CreateWinLeftTop();
         
         // Create the RenderWindow and RenderWindowInteractor.
         renWin = vtkRenderWindow.New();
