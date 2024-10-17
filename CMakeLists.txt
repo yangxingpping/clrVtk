@@ -25,6 +25,7 @@ set(NATIVEENTITY_INCLUDE_DIR
 add_subdirectory(UnmanagedNativeDLL)
 add_subdirectory(CLI_DLL_Bridge)
 add_subdirectory(UnmanagedNativeTest_Application)
+add_subdirectory(UnmanagedNativeVTKLoadSTP)
 
 
 # C# Project MumboJumbo Hack
