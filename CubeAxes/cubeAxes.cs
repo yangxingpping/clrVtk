@@ -42,16 +42,19 @@ public class cubeAxesClass
         camera.SetPosition(8.3761, 4.94858, 4.12505);
         camera.SetViewUp(0.180325, 0.549245, -0.815974);
     }
+    public static void InitLight()
+    {
+        // Create a vtkLight, and set the light parameters.
+        light = vtkLight.New();
+        light.SetFocalPoint(0.21406, 1.5, 0);
+        light.SetPosition(8.3761, 4.94858, 4.12505);
+    }
     public static void Main(String[] argv)
     {
         InitLODActor();
         InitOutlineActor();
         InitCamera();
-
-        // Create a vtkLight, and set the light parameters.
-        light = vtkLight.New();
-        light.SetFocalPoint(0.21406, 1.5, 0);
-        light.SetPosition(8.3761, 4.94858, 4.12505);
+        InitLight();
 
         // Create the Renderers.  Assign them the appropriate viewport coordinates,
         // active camera, and light.
