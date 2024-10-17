@@ -8,6 +8,8 @@
 #include "vtkFloatArray.h"
 #include "vtkVersion.h"
 
+#include "TopoDS_Face.hxx"
+
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 #include <windows.h>
 #ifdef _MANAGED

@@ -16,5 +16,5 @@ SET(UnmanagedDLL_SOURCE
 
 add_library(NativeEntity ${LIB_TYPE} ${UnmanagedDLL_SOURCE})
 
-target_link_libraries(NativeEntity PRIVATE ${VTK_LIBRARIES})
+target_link_libraries(NativeEntity PRIVATE ${VTK_LIBRARIES} PRIVATE ${OpenCASCADE_LIBRARIES})
 

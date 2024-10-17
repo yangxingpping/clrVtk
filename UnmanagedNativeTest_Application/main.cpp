@@ -18,6 +18,9 @@ int main()
 {
     std::cout << "NativeEntity DLL Test C++ Program." <<std::endl;
 
-    NativeEntity* nativeObj = new NativeEntity();
+    NativeEntity* nt = new NativeEntity();
+    nt->Init();
+    auto pd = nt->GetPolyData();
 
+    return 0;
 }
