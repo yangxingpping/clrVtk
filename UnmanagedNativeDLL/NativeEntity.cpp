@@ -90,7 +90,7 @@ bool NativeEntity::Init()
 
 	// We now assign the pieces to the vtkPolyData.
 	//mPolyData->SetPoints(points);
-	//mPolyData->SetPolys(polys);
+	mPolyData->SetPolys(polys);
 	std::cout << "ploys count=" << polys->GetSize() << " points count=" << mPolyData->GetPoints()->GetNumberOfPoints() << std::endl;
 	//mPolyData->GetPointData()->SetScalars(scalars);
 	return true;
