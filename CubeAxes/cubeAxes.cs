@@ -3,9 +3,8 @@ using System;
 
 public class cubeAxesClass
 {
-    public static void Main(String[] argv)
+    public static void InitLODActor()
     {
-        
         fohe = vtkBYUReader.New();
         fohe.SetGeometryFileName("../../../teapot.g");
 
@@ -16,9 +15,14 @@ public class cubeAxesClass
         // Set up the associated mapper and actor.
         foheMapper = vtkPolyDataMapper.New();
         foheMapper.SetInputConnection(normals.GetOutputPort());
-       
+
         foheActor = vtkLODActor.New();
         foheActor.SetMapper(foheMapper);
+    }
+    public static void Main(String[] argv)
+    {
+
+        InitLODActor();
 
         // Create a vtkOutlineFilter to draw the bounding box of the data set.  Also
         // create the associated mapper and actor.
