@@ -19,22 +19,26 @@ public class cubeAxesClass
         foheActor = vtkLODActor.New();
         foheActor.SetMapper(foheMapper);
     }
+    public static void InitOutlineActor()
+    {
+        // Create a vtkOutlineFilter to draw the bounding box of the data set.  Also
+        // create the associated mapper and actor.
+        outline = vtkOutlineFilter.New();
+        outline.SetInputConnection(normals.GetOutputPort());
+
+        mapOutline = vtkPolyDataMapper.New();
+        mapOutline.SetInputConnection(outline.GetOutputPort());
+
+        outlineActor = vtkActor.New();
+        outlineActor.SetMapper(mapOutline);
+        outlineActor.GetProperty().SetColor(0, 0, 0);
+    }
     public static void Main(String[] argv)
     {
 
         InitLODActor();
 
-        // Create a vtkOutlineFilter to draw the bounding box of the data set.  Also
-        // create the associated mapper and actor.
-        outline = vtkOutlineFilter.New();
-        outline.SetInputConnection(normals.GetOutputPort());
-        
-        mapOutline = vtkPolyDataMapper.New();
-        mapOutline.SetInputConnection(outline.GetOutputPort());
-        
-        outlineActor = vtkActor.New();
-        outlineActor.SetMapper(mapOutline);
-        outlineActor.GetProperty().SetColor(0, 0, 0);
+        InitOutlineActor();
 
         // Create a vtkCamera, and set the camera parameters.
         camera = vtkCamera.New();
