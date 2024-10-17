@@ -90,7 +90,7 @@ public class cubeAxesClass
         ren2.SetActiveCamera(camera);
         ren2.AddLight(light);
         polyDataMapper = vtkPolyDataMapper.New();
-        polyDataMapper.SetInputData(obj.GetCppPolyDataByCopy());
+        polyDataMapper.SetInputData(obj.GetCppPolyDataByCopy(false));
         polyDataActor = vtkActor.New();
         polyDataActor.SetMapper(polyDataMapper);
         polyDataActor.GetProperty().SetDiffuseColor(1, 0, 0);
@@ -124,7 +124,7 @@ public class cubeAxesClass
         ren3.SetActiveCamera(camera);
         ren3.AddLight(light);
         polyDataMapper = vtkPolyDataMapper.New();
-        polyDataMapper.SetInputData(obj.GetCppPolyDataByCopy());
+        polyDataMapper.SetInputData(obj.GetCppPolyDataByCopy(true));
         polyDataActor = vtkActor.New();
         polyDataActor.SetMapper(polyDataMapper);
         polyDataActor.GetProperty().SetDiffuseColor(1, 0, 0);

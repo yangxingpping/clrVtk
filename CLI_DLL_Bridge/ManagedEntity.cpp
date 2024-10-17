@@ -61,7 +61,7 @@ namespace EntityLibrary
 		return ret;
 	}
 
-	Kitware::VTK::vtkPolyData^ ManagedEntity::GetCppPolyDataByCopy()
+	Kitware::VTK::vtkPolyData^ ManagedEntity::GetCppPolyDataByCopy(bool second)
 	{
 		Kitware::VTK::vtkPolyData^ ret = gcnew Kitware::VTK::vtkPolyData();
 		Kitware::VTK::vtkPoints^ cpoints = gcnew Kitware::VTK::vtkPoints();
@@ -69,7 +69,10 @@ namespace EntityLibrary
 		Kitware::VTK::vtkDataArray^ cuvs = gcnew Kitware::VTK::vtkFloatArray();
 		Kitware::VTK::vtkCellArray^ cpolys = gcnew Kitware::VTK::vtkCellArray();
 		Kitware::VTK::vtkCellArray^ clines = gcnew Kitware::VTK::vtkCellArray();
-
+		if (second)
+		{
+			nativeObj->Init2();
+		}
 		auto cppPolyData = nativeObj->GetPolyData();
 		auto pts = cppPolyData->GetPoints();
 		auto nor = cppPolyData->GetPointData()->GetNormals();

@@ -9,6 +9,9 @@
 #include "vtkVersion.h"
 
 #include "TopoDS_Face.hxx"
+#include "BRepPrimAPI_MakeBox.hxx"
+#include "IVtkOCC_Shape.hxx"
+#include "IVtkTools_ShapeDataSource.hxx"
 
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 #include <windows.h>
@@ -90,7 +93,6 @@ bool NativeEntity::Init()
 	{
 		polys->InsertNextCell(vtkIdType(i.size()), i.data());
 	}
-
 	// We now assign the pieces to the vtkPolyData.
 	//mPolyData->SetPoints(points);
 	mPolyData->SetPolys(polys);
@@ -101,7 +103,13 @@ bool NativeEntity::Init()
 
 bool NativeEntity::Init2()
 {
-
+	auto box = BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(1.0, 2.0, 3.0);
+	auto shape = box.Shape();
+	IVtkOCC_Shape::Handle shapeImpl = new IVtkOCC_Shape(shape);
+	auto ds = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
+	ds->SetShape(shapeImpl);
+	ds->Update();
+	mPolyData = ds->GetOutput();
 	return true;
 }
 

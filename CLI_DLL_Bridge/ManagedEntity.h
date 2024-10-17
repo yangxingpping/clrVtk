@@ -19,7 +19,7 @@ namespace EntityLibrary
 
 		IntPtr GetPolyData();
 		Kitware::VTK::vtkPolyData^ GetClrPolyData();
-		Kitware::VTK::vtkPolyData^ GetCppPolyDataByCopy();
+		Kitware::VTK::vtkPolyData^ GetCppPolyDataByCopy(bool second);
 	private:
 		NativeEntity* nativeObj; // Our native object is thus being wrapped
 
