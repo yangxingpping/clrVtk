@@ -2,6 +2,10 @@
 #include "vtkPointData.h"
 #include "vtkPolyData.h"
 
+#include <iostream>
+using std::cout;
+using std::endl;
+
 using namespace System;
 using namespace System::Runtime::InteropServices;	// needed for Marshal
 
@@ -74,6 +78,7 @@ namespace EntityLibrary
 		auto lines = cppPolyData->GetLines();
 		if (pts)
 		{
+			cout << "point count=" << pts->GetNumberOfPoints() << endl;
 			for (vtkIdType i = 0; i < pts->GetNumberOfPoints(); ++i)
 			{
 				auto pt = pts->GetPoint(i);
@@ -82,6 +87,7 @@ namespace EntityLibrary
 		}
 		if (nor)
 		{
+			cout << "normal count=" << nor->GetNumberOfTuples() << endl;
 			cnor->SetNumberOfComponents(3);
 			for (vtkIdType i = 0; i < nor->GetNumberOfTuples(); ++i)
 			{
@@ -91,6 +97,7 @@ namespace EntityLibrary
 		}
 		if (uvs)
 		{
+			cout << "uv count=" << uvs->GetNumberOfTuples() << endl;
 			uvs->SetNumberOfComponents(3);
 			for (vtkIdType i = 0; i < uvs->GetNumberOfTuples(); ++i)
 			{
@@ -110,8 +117,10 @@ namespace EntityLibrary
 					dst->InsertNextId(idList->GetId(i));
 				}
 				cpolys->InsertNextCell(dst);
+				++cellIndex;
 			}
 			idList->Delete();
+			cout << "polys count=" << cellIndex << endl;
 		}
 		if (lines)
 		{
@@ -125,8 +134,10 @@ namespace EntityLibrary
 					dst->InsertNextId(idList->GetId(i));
 				}
 				clines->InsertNextCell(dst);
+				++cellIndex;
 			}
 			idList->Delete();
+			cout << "lines count=" << cellIndex << endl;
 		}
 		ret->SetPoints(cpoints);
 		ret->SetPolys(cpolys);
