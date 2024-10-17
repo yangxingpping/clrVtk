@@ -33,7 +33,7 @@ endif()
   
 add_library(CLI_Bridge ${LIB_TYPE} ${CLI_DLL_Bridge_SOURCE})
 
-target_link_libraries(CLI_Bridge NativeEntity)
+target_link_libraries(CLI_Bridge PRIVATE  NativeEntity PRIVATE ${VTK_LIBRARIES})
 
 ADD_DEPENDENCIES(CLI_Bridge NativeEntity)
 STRING (REGEX REPLACE "/RTC(su|[1su])" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")   

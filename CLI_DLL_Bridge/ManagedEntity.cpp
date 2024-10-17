@@ -1,4 +1,6 @@
 #include "ManagedEntity.h"
+#include "vtkPointData.h"
+#include "vtkPolyData.h"
 
 using namespace System;
 using namespace System::Runtime::InteropServices;	// needed for Marshal
@@ -55,4 +57,84 @@ namespace EntityLibrary
 		Console::WriteLine("point count={0}", clrPts->GetNumberOfPoints());
 		return ret;
 	}
+
+	Kitware::VTK::vtkPolyData^ ManagedEntity::GetCppPolyDataByCopy()
+	{
+		Kitware::VTK::vtkPolyData^ ret = gcnew Kitware::VTK::vtkPolyData();
+		Kitware::VTK::vtkPoints^ cpoints = gcnew Kitware::VTK::vtkPoints();
+		Kitware::VTK::vtkDataArray^ cnor = gcnew Kitware::VTK::vtkFloatArray();
+		Kitware::VTK::vtkDataArray^ cuvs = gcnew Kitware::VTK::vtkFloatArray();
+		Kitware::VTK::vtkCellArray^ cpolys = gcnew Kitware::VTK::vtkCellArray();
+		Kitware::VTK::vtkCellArray^ clines = gcnew Kitware::VTK::vtkCellArray();
+
+		auto cppPolyData = nativeObj->GetPolyData();
+		auto pts = cppPolyData->GetPoints();
+		auto nor = cppPolyData->GetPointData()->GetNormals();
+		auto uvs = cppPolyData->GetPointData()->GetTCoords();
+		auto polys = cppPolyData->GetPolys();
+		auto lines = cppPolyData->GetLines();
+		if (pts)
+		{
+			for (vtkIdType i = 0; i < pts->GetNumberOfPoints(); ++i)
+			{
+				auto pt = pts->GetPoint(i);
+				cpoints->InsertPoint(i, pt[0], pt[1], pt[2]);
+			}
+		}
+		if (nor)
+		{
+			cnor->SetNumberOfComponents(3);
+			for (vtkIdType i = 0; i < nor->GetNumberOfTuples(); ++i)
+			{
+				auto tp = nor->GetTuple(i);
+				cnor->InsertNextTuple3(tp[0], tp[1], tp[2]);
+			}
+		}
+		if (uvs)
+		{
+			uvs->SetNumberOfComponents(3);
+			for (vtkIdType i = 0; i < uvs->GetNumberOfTuples(); ++i)
+			{
+				auto tp = uvs->GetTuple(i);
+				cuvs->InsertNextTuple3(tp[0], tp[1], tp[2]);
+			}
+		}
+		if (polys)
+		{
+			int cellIndex{ 0 };
+			vtkIdList* idList = vtkIdList::New();
+			while (polys->GetNextCell(idList))
+			{
+				Kitware::VTK::vtkIdList^ dst = gcnew Kitware::VTK::vtkIdList();
+				for (vtkIdType i = 0; i < idList->GetNumberOfIds(); ++i)
+				{
+					dst->InsertNextId(idList->GetId(i));
+				}
+				cpolys->InsertNextCell(dst);
+			}
+			idList->Delete();
+		}
+		if (lines)
+		{
+			int cellIndex{ 0 };
+			vtkIdList* idList = vtkIdList::New();
+			while (lines->GetNextCell(idList))
+			{
+				Kitware::VTK::vtkIdList^ dst = gcnew Kitware::VTK::vtkIdList();
+				for (vtkIdType i = 0; i < idList->GetNumberOfIds(); ++i)
+				{
+					dst->InsertNextId(idList->GetId(i));
+				}
+				clines->InsertNextCell(dst);
+			}
+			idList->Delete();
+		}
+		ret->SetPoints(cpoints);
+		ret->SetPolys(cpolys);
+		ret->SetLines(clines);
+		//ret->GetPointData()->SetNormals(cnor);
+		ret->GetPointData()->SetTCoords(cuvs);
+		return ret;
+	}
+
 }
