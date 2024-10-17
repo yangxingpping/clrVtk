@@ -31,3 +31,6 @@
 
 /.vscode/
 /build_win/
+
+/CubeAxes/bin/
+/CubeAxes/obj/
