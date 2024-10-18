@@ -17,11 +17,11 @@ namespace EntityLibrary
 		//Sets
 		void SetInt(int nInt);
 
-		void SetClrPolyData(Kitware::VTK::vtkPolyData^ pd);
+		//void SetClrPolyData(Kitware::VTK::vtkPolyData^ pd);
 
 		//IntPtr GetPolyData();
 		//Kitware::VTK::vtkPolyData^ GetClrPolyData();
-		Kitware::VTK::vtkPolyData^ GetCppPolyDataByCopy(bool second);
+		/*Kitware::VTK::vtkPolyData^ GetCppPolyDataByCopy(bool second);*/
 
 		Kitware::VTK::vtkPolyData^ GetVTKPolyData();
 		Kitware::VTK::vtkPolyData^ GetOCCTPolyData();
