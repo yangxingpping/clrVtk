@@ -10,11 +10,11 @@ ENDIF (BUILD_SHARED_LIBS)
 add_definitions(-DEXAMPLEUNMANAGEDDLL_EXPORTS)
 
 SET(UnmanagedDLL_SOURCE 
-   NativeEntity.cpp NativeEntity.h
+   NativeEntity.cpp NativeEntity.h NativeEntityOCCT.cpp NativeEntityOCCT.h NativeEntityVTK.h NativeEntityVTK.cpp
    TestClassCallers.cpp TestClassCallers.h
    )
 
 add_library(NativeEntity ${LIB_TYPE} ${UnmanagedDLL_SOURCE})
 
-target_link_libraries(NativeEntity PRIVATE ${VTK_LIBRARIES} PRIVATE ${OpenCASCADE_LIBRARIES})
+target_link_libraries(NativeEntity PRIVATE spdlog::spdlog PRIVATE ${VTK_LIBRARIES} PRIVATE ${OpenCASCADE_LIBRARIES})
 

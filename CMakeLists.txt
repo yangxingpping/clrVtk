@@ -10,6 +10,8 @@ include("${VTK_USE_FILE}")
 find_package(OpenCASCADE CONFIG REQUIRED)
 include_directories ( SYSTEM ${OpenCASCADE_INCLUDE_DIR} )
 
+find_package(spdlog CONFIG REQUIRED)
+
 ##############################################################
 # Output paths
 ##############################################################

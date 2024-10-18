@@ -9,6 +9,6 @@ SET(UnmanagedNativeTest_Application_SOURCE
    
 add_executable(NativeEntity_Test_Application ${UnmanagedNativeTest_Application_SOURCE})
 
-target_link_libraries(NativeEntity_Test_Application NativeEntity)
+target_link_libraries(NativeEntity_Test_Application PRIVATE spdlog::spdlog PRIVATE NativeEntity PRIVATE ${VTK_LIBRARIES} PRIVATE ${OpenCASCADE_LIBRARIES})
 
 ADD_DEPENDENCIES(NativeEntity_Test_Application NativeEntity)   

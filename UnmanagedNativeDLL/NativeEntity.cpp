@@ -1,17 +1,10 @@
 #include "NativeEntity.h"
 #include <string>
-#include <iostream>
 #include <array>
 
-#include "vtkPolyData.h"
-#include "vtkPointData.h"
-#include "vtkFloatArray.h"
 #include "vtkVersion.h"
 
-#include "TopoDS_Face.hxx"
-#include "BRepPrimAPI_MakeBox.hxx"
-#include "IVtkOCC_Shape.hxx"
-#include "IVtkTools_ShapeDataSource.hxx"
+#include "spdlog/spdlog.h"
 
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 #include <windows.h>
@@ -38,89 +31,17 @@ BOOL APIENTRY DllMain(HMODULE /*hModule*/, DWORD	ul_reason_for_call, LPVOID /*lp
 
 NativeEntity::NativeEntity()
 {
-	cout << "vtk verison:" << vtkVersion::GetVTKMajorVersion() << "." << vtkVersion::GetVTKMinorVersion() << "." << vtkVersion::GetVTKBuildVersion() << endl;
-	mPolyData = vtkPolyData::New();
+	SPDLOG_INFO("vtk verison:{}.{}.{}", vtkVersion::GetVTKMajorVersion(), vtkVersion::GetVTKMinorVersion(), vtkVersion::GetVTKBuildVersion());
 }
 
 NativeEntity::~NativeEntity()
 {
-	if (mPolyData != nullptr)
-	{
-		mPolyData->Delete();
-		mPolyData = nullptr;
-	}
 }
 
-void NativeEntity::Reset(void* pt)
-{
-	if (mPolyData != nullptr)
-	{
-		mPolyData->Delete();
-	}
-	mPolyData = (vtkPolyData*)(pt);
-	Init();
-}
-
-bool NativeEntity::Init()
-{
-	std::array<std::array<double, 3>, 8> pts = { { { { 0, 0, 0 } }, { { 1, 0, 0 } }, { { 1, 1, 0 } },
-	{ { 0, 1, 0 } }, { { 0, 0, 1 } }, { { 1, 0, 1 } }, { { 1, 1, 1 } }, { { 0, 1, 1 } } } };
-	// The ordering of the corner points on each face.
-	std::array<std::array<vtkIdType, 4>, 6> ordering = { { { { 0, 1, 2, 3 } }, { { 4, 5, 6, 7 } },
-	  { { 0, 1, 5, 4 } }, { { 1, 2, 6, 5 } }, { { 2, 3, 7, 6 } }, { { 3, 0, 4, 7 } } } };
-	vtkPoints* points{ nullptr };
-	if (mPolyData->GetPoints())
-	{
-		std::cout << "polyData points is not empty" << std::endl;
-		points = mPolyData->GetPoints();
-	}
-	else
-	{
-		points = vtkPoints::New();
-		mPolyData->SetPoints(points);
-	}
-	//vtkNew<vtkPoints> points;
-	vtkNew<vtkCellArray> polys;
-	vtkNew<vtkFloatArray> scalars;
-
-	// Load the point, cell, and data attributes.
-	for (auto i = 0ul; i < pts.size(); ++i)
-	{
-		points->InsertPoint(i, pts[i].data());
-		scalars->InsertTuple1(i, i);
-	}
-	for (auto&& i : ordering)
-	{
-		polys->InsertNextCell(vtkIdType(i.size()), i.data());
-	}
-	// We now assign the pieces to the vtkPolyData.
-	//mPolyData->SetPoints(points);
-	mPolyData->SetPolys(polys);
-	std::cout << "ploys count=" << polys->GetSize() << " points count=" << mPolyData->GetPoints()->GetNumberOfPoints() << std::endl;
-	mPolyData->GetPointData()->SetScalars(scalars);
-	return true;
-}
-
-bool NativeEntity::Init2()
-{
-	auto box = BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(1.0, 2.0, 3.0);
-	auto shape = box.Shape();
-	IVtkOCC_Shape::Handle shapeImpl = new IVtkOCC_Shape(shape);
-	auto ds = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
-	ds->SetShape(shapeImpl);
-	ds->Update();
-	mPolyData = ds->GetOutput();
-	return true;
-}
 
 int NativeEntity::GetInt()
 {
 	return mInt;
-}
-
-vtkPolyData* NativeEntity::GetPolyData()
-{
-	return mPolyData;
 }
 
 

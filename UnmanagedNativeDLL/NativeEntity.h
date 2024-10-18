@@ -17,18 +17,13 @@ public:
 	NativeEntity(const NativeEntity& ref) = delete;
 	NativeEntity(const NativeEntity&& ref) = delete;
 	~NativeEntity();
-	void Reset(void* pt);
-	bool Init();
-	bool Init2();
-
 	//gets
 	int GetInt();
-	vtkPolyData* GetPolyData();
 
 	//sets
 	void SetInt(int nInt);
 
 private:
 	int mInt{ 0 };
-	vtkPolyData* mPolyData{ nullptr };
+	
 };
