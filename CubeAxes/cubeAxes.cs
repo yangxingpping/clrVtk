@@ -84,13 +84,12 @@ public class cubeAxesClass
     }
     public static void CreateWinRightBottom()
     {
-        var obj = new ManagedEntity();
         ren2 = vtkRenderer.New();
         ren2.SetViewport(0.5, 0, 1.0, 1.0);
         ren2.SetActiveCamera(camera);
         ren2.AddLight(light);
         polyDataMapper = vtkPolyDataMapper.New();
-        polyDataMapper.SetInputData(obj.GetCppPolyDataByCopy(false));
+        polyDataMapper.SetInputData(nativeObj.GetVTKPolyData());
         polyDataActor = vtkActor.New();
         polyDataActor.SetMapper(polyDataMapper);
         polyDataActor.GetProperty().SetDiffuseColor(1, 0, 0);
@@ -118,13 +117,12 @@ public class cubeAxesClass
     }
     public static void CreateWinLeftTop()
     {
-        var obj = new ManagedEntity();
         ren3 = vtkRenderer.New();
         ren3.SetViewport(0, 0.5, 0.5, 1.0);
         ren3.SetActiveCamera(camera);
         ren3.AddLight(light);
         polyDataMapper = vtkPolyDataMapper.New();
-        polyDataMapper.SetInputData(obj.GetCppPolyDataByCopy(true));
+        polyDataMapper.SetInputData(nativeObj.GetOCCTPolyData());
         polyDataActor = vtkActor.New();
         polyDataActor.SetMapper(polyDataMapper);
         polyDataActor.GetProperty().SetDiffuseColor(1, 0, 0);
@@ -151,6 +149,7 @@ public class cubeAxesClass
     }
     public static void Main(String[] argv)
     {
+        nativeObj = new ManagedEntity();
         InitLODActor();
         InitOutlineActor();
         InitCamera();
@@ -161,7 +160,6 @@ public class cubeAxesClass
         CreateWinRightBottom();
         CreateWinLeftTop();
         
-        // Create the RenderWindow and RenderWindowInteractor.
         renWin = vtkRenderWindow.New();
         renWin.AddRenderer(ren1);
         renWin.AddRenderer(ren2);
@@ -174,14 +172,8 @@ public class cubeAxesClass
 
         // Render
         renWin.Render();
-
-        // Start event loop
         iren.Start();
-
-        // Set up a check for aborting rendering.
         renWin.AbortCheckEvt += new vtkObject.vtkObjectEventHandler(TkCheckAbort);
-        
-        //Clean Up  
         deleteAllVTKObjects();
     }
 
@@ -206,10 +198,9 @@ public class cubeAxesClass
     static vtkPolyDataMapper polyDataMapper;
     static vtkActor polyDataActor;
     static int foo;
+    static ManagedEntity nativeObj;
 
-    /// <summary>
-    /// Callback function for renWin.AbortCheckEvt
-    /// </summary>
+
     public static void TkCheckAbort(vtkObject sender, vtkObjectEventArgs e)
     {
         foo = renWin.GetEventPending();
@@ -219,10 +210,8 @@ public class cubeAxesClass
         }
     }
 
-    ///<summary>Deletes all static objects created</summary>
     public static void deleteAllVTKObjects()
     {
-        //clean up vtk objects
         if (fohe != null) { fohe.Dispose(); }
         if (normals != null) { normals.Dispose(); }
         if (foheMapper != null) { foheMapper.Dispose(); }
@@ -241,6 +230,7 @@ public class cubeAxesClass
         if (axes2 != null) { axes2.Dispose(); }
         if (polyDataMapper != null) { polyDataMapper.Dispose(); }
         if (polyDataActor != null) { polyDataActor.Dispose(); }
+        if (nativeObj != null) { nativeObj.Dispose(); }
     }
 }
 
