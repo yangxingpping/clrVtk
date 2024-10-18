@@ -48,6 +48,11 @@ NativeEntityOCCT::~NativeEntityOCCT()
 		mPolyData->Delete();
 		mPolyData = nullptr;
 	}
+	auto ecount = _impl.erase(this);
+	if (ecount == 0)
+	{
+		SPDLOG_WARN("something wrong TBD");
+	}
 }
 
 void NativeEntityOCCT::Reset(void* pt)

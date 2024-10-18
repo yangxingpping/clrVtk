@@ -23,7 +23,11 @@ namespace EntityLibrary
 	ManagedEntity::~ManagedEntity()
 	{
 		delete nativeObj;
-
+		delete occt;
+		delete vtk;
+		nativeObj = nullptr;
+		occt = nullptr;
+		vtk = nullptr;
 	}
 
 	int ManagedEntity::GetInt()
