@@ -145,6 +145,7 @@ public class cubeAxesClass
         ren3.AddViewProp(axes3);
         var txtTag = vtkTextActor.New();
         txtTag.SetInput("polyData from occt topoDS_Shape");
+        txtTag.GetProperty().SetColor(1.0, 1.0, 0.0);
         ren3.AddActor(txtTag);
     }
     public static void Main(String[] argv)
