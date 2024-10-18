@@ -13,6 +13,8 @@ C#项目(CubeAxes)使用visual studio管理,在使用cmake生成vs工程之后�
     UnmanagedNativeVTKLoadSTP: 使用C++导入stp文件并使用VTK渲染demo
     UnmanagedNativeTest_Application: 测试UnmanagedNativeDLL模块demo
 
+ActiviZ显示demo截图![ActiviZ显示效果图](1.png)
+
 其他说明:
     使用cmake生成c#项目的参考链接，后续可以考虑整个项目都使用CMake来管理。
     https://stackoverflow.com/questions/2074144/generate-c-sharp-project-using-cmake
