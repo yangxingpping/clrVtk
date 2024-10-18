@@ -11,7 +11,7 @@ find_package(OpenCASCADE CONFIG REQUIRED)
 include_directories ( SYSTEM ${OpenCASCADE_INCLUDE_DIR} )
 
 find_package(spdlog CONFIG REQUIRED)
-find_package(Catch2 CONFIG REQUIRED)
+#find_package(Catch2 CONFIG REQUIRED)
 
 ##############################################################
 # Output paths
